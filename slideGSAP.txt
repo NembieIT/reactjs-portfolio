@@ -1,0 +1,60 @@
+        // Paralax effect scroll projects
+        gsap.fromTo(sectionRef.current,
+            { backgroundPosition: "50% 0%" },
+            {
+                backgroundPosition: "50% 100%",
+                ease: "none",
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: "top 80%",
+                    scrub: true,
+                }
+            }
+        )
+        // Horizontal Scrolling (create horizontal scrolling animation)
+        const horizontalScroll = gsap.to(".Card", {
+            xPercent: -100 * (projects.length - 1),
+            ease: "none",
+            scrollTrigger: {
+                trigger: triggerRef.current,
+                start: "top top",
+                end: () => +=${scrollRef.current.offsetWidth},
+                pin: true,
+                scrub: 1,
+                snap: {
+                    snapTo: 1 / (projects.length - 1),
+                    duration: { main: 0.2, max: 0.3 },
+                    delay: 0.1,
+                },
+                invalidateOnRefresh: true,
+            }
+        })
+        // Animate each image card
+        const cards = gsap.utils.toArray(".Card");
+        cards.forEach((card, i) => {
+            const image = card.querySelector(".project-image");
+            const imagetitle = card.querySelector(".project-title");
+            // Create a timeline for each card
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: card,
+                    containerAnimation: horizontalScroll,
+                    start: "left right",
+                    end: "right left",
+                    scrub: true,
+                }
+            })
+            // Image scale and opacity animation
+            tl.fromTo(image,
+                { scale: 0, rotate: -20 },
+                { scale: 1, rotate: 1, duration: 0.5 }
+            )
+            if (imagetitle) {
+                tl.fromTo(imagetitle,
+                    { y:30 },
+                    { y:-100, duration: 0.3 },
+                    0.2
+                )
+            }
+        })
+    }, [projects.length])

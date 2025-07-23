@@ -1,0 +1,19 @@
+*::-webkit-scrollbar{
+  display:none;
+}
+body{
+  overflow-x: hidden;
+  width: 100dvw;
+  cursor: none;
+  @apply bg-gradient-to-b from-violet-600 to-black
+}
+i{
+  transition: ease-in-out 0.3s;
+}
+input{
+  outline: none;
+  color:black;
+}
+a, button{
+  cursor:none;
+}
